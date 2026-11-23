@@ -138,7 +138,7 @@
                     <div class="stat-icon blue">👨‍🎓</div>
                     <div>
                         <p>Total Students</p>
-                        <h2>1,250</h2>
+                        <h2 id="totalStudents">0</h2>
                         <span>Registered students</span>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                     <div class="stat-icon purple">📅</div>
                     <div>
                         <p>Total Events</p>
-                        <h2>24</h2>
+                        <h2 id="totalEvents">0</h2>
                         <span>College events</span>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                     <div class="stat-icon green">🤝</div>
                     <div>
                         <p>Volunteers</p>
-                        <h2>86</h2>
+                        <h2 id="totalVolunteers">0</h2>
                         <span>Active volunteers</span>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
                     <div class="stat-icon orange">🏪</div>
                     <div>
                         <p>Total Stalls</p>
-                        <h2>18</h2>
+                        <h2 id="totalStalls">0</h2>
                         <span>Stall applications</span>
                     </div>
                 </div>
@@ -180,50 +180,10 @@
 
                     <div class="panel-heading">
                         <h2>Recent Events</h2>
-                        <a href="#events">View All</a>
+                        <a href="event-management.html">View All</a>
                     </div>
 
-                    <div class="event-item">
-                        <div class="event-date">
-                            <strong>12</strong>
-                            <span>DEC</span>
-                        </div>
-
-                        <div class="event-details">
-                            <h3>Annual Cultural Fest</h3>
-                            <p>📍 College Auditorium</p>
-                        </div>
-
-                        <span class="status upcoming">Upcoming</span>
-                    </div>
-
-                    <div class="event-item">
-                        <div class="event-date">
-                            <strong>18</strong>
-                            <span>DEC</span>
-                        </div>
-
-                        <div class="event-details">
-                            <h3>Technical Workshop</h3>
-                            <p>📍 Computer Lab</p>
-                        </div>
-
-                        <span class="status ongoing">Ongoing</span>
-                    </div>
-
-                    <div class="event-item">
-                        <div class="event-date">
-                            <strong>22</strong>
-                            <span>DEC</span>
-                        </div>
-
-                        <div class="event-details">
-                            <h3>Sports Competition</h3>
-                            <p>📍 Sports Ground</p>
-                        </div>
-
-                        <span class="status completed">Completed</span>
-                    </div>
+                        <div id="recentEvents"></div>
 
                 </div>
 

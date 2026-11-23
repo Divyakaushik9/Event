@@ -386,6 +386,12 @@ body {
     text-decoration: none;
 }
 
+.recent-events .empty-message {
+    color: #64748b;
+    font-size: 12px;
+    padding: 16px 0;
+}
+
 /* EVENT ITEMS */
 
 .event-item {

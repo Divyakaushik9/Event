@@ -41,6 +41,10 @@ function saveData() {
     localStorage.setItem("campusStudents", JSON.stringify(students));
 }
 
+if (!localStorage.getItem("campusStudents")) {
+    saveData();
+}
+
 
 // DISPLAY STUDENTS
 
