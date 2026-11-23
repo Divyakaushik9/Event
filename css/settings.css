@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fb;
+    color: #263247;
+}
+
+.topbar {
+    height: 70px;
+    background: #172554;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 35px;
+}
+
+.topbar h2 {
+    font-size: 23px;
+}
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.admin-label {
+    background: #334477;
+    padding: 9px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.main-content {
+    max-width: 1250px;
+    margin: auto;
+    padding: 35px;
+}
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.page-heading p {
+    color: #718096;
+    font-size: 14px;
+}
+
+.settings-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 22px;
+    align-items: start;
+}
+
+.settings-menu {
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.settings-tab {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 15px 13px;
+    border: none;
+    background: transparent;
+    color: #526078;
+    font-size: 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.settings-tab:hover {
+    background: #f1f4fa;
+}
+
+.settings-tab.active {
+    background: #eef2ff;
+    color: #3157d5;
+    font-weight: 600;
+}
+
+.settings-content {
+    background: white;
+    border-radius: 10px;
+    padding: 28px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+    min-height: 500px;
+}
+
+.settings-section {
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.section-heading {
+    border-bottom: 1px solid #e9edf4;
+    padding-bottom: 18px;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 21px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    color: #718096;
+    font-size: 13px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #344054;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dce2ed;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #3157d5;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.save-btn {
+    background: #3157d5;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #2444b5;
+}
+
+.toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 19px 0;
+    border-bottom: 1px solid #e9edf4;
+    cursor: pointer;
+}
+
+.toggle-row strong {
+    font-size: 14px;
+}
+
+.toggle-row p {
+    font-size: 12px;
+    color: #8792a5;
+    margin-top: 6px;
+}
+
+.toggle-row input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #3157d5;
+}
+
+.security-note {
+    background: #fff7ed;
+    color: #9a3412;
+    border-radius: 7px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.footer-note {
+    text-align: center;
+    color: #8792a5;
+    font-size: 13px;
+    margin: 30px 0 10px;
+}
+
+@media (max-width: 800px) {
+    .settings-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-menu {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .main-content {
+        padding: 18px;
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .topbar h2 {
+        font-size: 18px;
+    }
+
+    .settings-menu {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-content {
+        padding: 20px;
+    }
+}

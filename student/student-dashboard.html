@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | CampusEvents</title>
+    <link rel="stylesheet" href="../css/student-dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <h2>Campus<span>Events</span></h2>
+            <p>Student Panel</p>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="#overview" class="menu-link active">🏠 Overview</a>
+            <a href="#events" class="menu-link">📅 Browse Events</a>
+            <a href="#registrations" class="menu-link">📝 My Registrations</a>
+            <a href="#competitions" class="menu-link">🏆 Competitions</a>
+            <a href="#stalls" class="menu-link">🏪 Stall Applications</a>
+            <a href="#feedback" class="menu-link">⭐ Feedback</a>
+            <a href="#notifications" class="menu-link">🔔 Notifications</a>
+            <a href="#volunteerDuties" class="menu-link">🙋 My Volunteer Duties</a>
+            <a href="#profile" class="menu-link">👤 My Profile</a>
+        </nav>
+
+        <button class="logout-btn" id="logoutBtn">↪ Logout</button>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle">☰</button>
+
+            <div>
+                <h2>Student Dashboard</h2>
+                <p>Welcome, <span id="studentName">Student</span>!</p>
+            </div>
+
+            <div class="date-box" id="currentDate"></div>
+
+        </header>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="content-section active-section">
+
+            <div class="page-heading">
+                <h2>Dashboard Overview</h2>
+                <p>Explore events and manage your activities.</p>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div>
+                        <h3 id="totalEvents">0</h3>
+                        <p>Available Events</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div>
+                        <h3 id="totalRegistrations">0</h3>
+                        <p>My Registrations</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div>
+                        <h3 id="totalCompetitions">0</h3>
+                        <p>Competitions</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔔</div>
+                    <div>
+                        <h3 id="totalNotifications">0</h3>
+                        <p>Notifications</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-heading">
+                    <h3>Upcoming Events</h3>
+                    <button class="view-btn" data-target="events">View All</button>
+                </div>
+
+                <div id="overviewEvents" class="event-grid"></div>
+
+            </div>
+
+            <div class="panel">
+                <h3>Welcome to CampusEvents!</h3>
+
+                <p class="info-text">
+                    Discover college events, participate in competitions,
+                    apply for stalls and share your feedback.
+                    Stay updated with important college announcements.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- BROWSE EVENTS -->
+        <section id="events" class="content-section">
+
+            <div class="page-heading">
+                <h2>Browse Events</h2>
+                <p>Explore and register for upcoming college events.</p>
+            </div>
+
+            <div class="filter-bar">
+
+                <input type="text" id="eventSearch"
+                    placeholder="Search events...">
+
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Technical">Technical</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Workshop">Workshop</option>
+                </select>
+
+            </div>
+
+            <div id="allEvents" class="event-grid"></div>
+
+        </section>
+
+        <!-- MY REGISTRATIONS -->
+        <section id="registrations" class="content-section">
+
+            <div class="page-heading">
+                <h2>My Registrations</h2>
+                <p>View your registered events and their status.</p>
+            </div>
+
+            <div class="panel">
+
+                <div class="table-container">
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Category</th>
+                                <th>Registration Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="registrationsTable"></tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- COMPETITIONS -->
+        <section id="competitions" class="content-section">
+
+            <div class="page-heading">
+                <h2>Competitions & Results</h2>
+                <p>Explore competitions and check their results.</p>
+            </div>
+
+            <div id="competitionsList" class="event-grid"></div>
+
+        </section>
+
+        <!-- STALL APPLICATIONS -->
+        <section id="stalls" class="content-section">
+
+            <div class="page-heading">
+                <h2>Stall Applications</h2>
+                <p>Apply for stalls in events that offer stall facilities.</p>
+            </div>
+
+            <div class="panel">
+
+                <h3>Apply for a Stall</h3>
+
+                <form id="stallForm">
+
+                    <div class="form-group">
+                        <label>Select Event</label>
+
+                        <select id="stallEvent" required>
+                            <option value="">Select Event</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stall Category</label>
+
+                        <select id="stallCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Food">Food</option>
+                            <option value="Handmade Products">Handmade Products</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stall Description</label>
+
+                        <textarea id="stallDescription"
+                            placeholder="Describe your stall..."
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="primary-btn">
+                        Submit Application
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="panel">
+
+                <h3>My Stall Applications</h3>
+
+                <div class="table-container">
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="stallApplicationsTable"></tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- FEEDBACK -->
+        <section id="feedback" class="content-section">
+
+            <div class="page-heading">
+                <h2>Submit Feedback</h2>
+                <p>Share your experience about college events.</p>
+            </div>
+
+            <div class="panel">
+
+                <form id="feedbackForm">
+
+                    <div class="form-group">
+                        <label>Select Event</label>
+
+                        <select id="feedbackEvent" required>
+                            <option value="">Select Event</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rating</label>
+
+                        <select id="feedbackRating" required>
+                            <option value="">Select Rating</option>
+                            <option value="1">1 Star</option>
+                            <option value="2">2 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="5">5 Stars</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Comments</label>
+
+                        <textarea id="feedbackComment"
+                            placeholder="Write your feedback..."
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="primary-btn">
+                        Submit Feedback
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="panel">
+
+                <h3>My Feedback</h3>
+
+                <div class="table-container">
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Rating</th>
+                                <th>Comments</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="myFeedbackTable"></tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- NOTIFICATIONS -->
+        <section id="notifications" class="content-section">
+
+            <div class="page-heading">
+                <h2>Notifications & Announcements</h2>
+                <p>Stay updated with important college announcements.</p>
+            </div>
+
+            <div id="notificationsList" class="announcement-list"></div>
+
+        </section>
+
+        <!-- MY VOLUNTEER DUTIES -->
+        <section id="volunteerDuties" class="content-section">
+
+            <div class="page-heading">
+                <h2>My Volunteer Duties</h2>
+                <p>View your assigned events and volunteer responsibilities.</p>
+            </div>
+
+            <div class="panel">
+
+                <h3>My Assigned Duties</h3>
+
+                <div class="table-container">
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Duty</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="volunteerDutiesTable"></tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- MY PROFILE -->
+        <section id="profile" class="content-section">
+
+            <div class="page-heading">
+                <h2>My Profile</h2>
+                <p>View your personal and academic information.</p>
+            </div>
+
+            <div class="panel profile-panel">
+
+                <div class="profile-avatar">👤</div>
+
+                <div class="profile-details">
+
+                    <h2 id="profileName">Student Name</h2>
+
+                    <p class="profile-role">Student</p>
+
+                    <div class="profile-info">
+
+                        <p>
+                            <strong>Email:</strong>
+                            <span id="profileEmail">-</span>
+                        </p>
+
+                        <p>
+                            <strong>Phone:</strong>
+                            <span id="profilePhone">-</span>
+                        </p>
+
+                        <p>
+                            <strong>College ID:</strong>
+                            <span id="profileCollegeId">-</span>
+                        </p>
+
+                        <p>
+                            <strong>Course:</strong>
+                            <span id="profileCourse">-</span>
+                        </p>
+
+                        <p>
+                            <strong>Year:</strong>
+                            <span id="profileYear">-</span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- JAVASCRIPT FILE -->
+<script src="../js/student-dashboard.js"></script>
+
+</body>
+</html>

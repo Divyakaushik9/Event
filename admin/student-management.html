@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management | CampusEvents</title>
+    <link rel="stylesheet" href="../css/student-management.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header class="topbar">
+        <div>
+            <h2>CampusEvents</h2>
+            <p>Admin Panel / Student Management</p>
+        </div>
+        <a href="admin-dashboard.html" class="back-btn">← Dashboard</a>
+    </header>
+
+    <main>
+        <div class="page-heading">
+            <div>
+                <h1>Student Management</h1>
+                <p>Manage all registered college students.</p>
+            </div>
+
+            <button class="add-btn" id="addStudentBtn">
+                + Add Student
+            </button>
+        </div>
+
+        <div class="summary-card">
+            <div>
+                <p>Total Students</p>
+                <h2 id="totalStudents">0</h2>
+            </div>
+            <span>👨‍🎓</span>
+        </div>
+
+        <div class="table-container">
+
+            <div class="table-heading">
+                <h2>Student Records</h2>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search by name, email or college ID..."
+                >
+            </div>
+
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>College ID</th>
+                            <th>Student Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Course</th>
+                            <th>Year</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="studentTableBody"></tbody>
+                </table>
+            </div>
+
+            <p id="emptyMessage" class="empty-message">
+                No student records found.
+            </p>
+
+        </div>
+    </main>
+
+</div>
+
+
+<!-- ADD / EDIT STUDENT MODAL -->
+
+<div class="modal" id="studentModal">
+
+    <div class="modal-content">
+
+        <div class="modal-heading">
+            <div>
+                <h2 id="modalTitle">Add New Student</h2>
+                <p>Enter student details below.</p>
+            </div>
+
+            <button class="close-btn" id="closeModal">&times;</button>
+        </div>
+
+        <form id="studentForm">
+
+            <input type="hidden" id="editIndex">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="studentName" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="studentEmail" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input
+                    type="tel"
+                    id="studentPhone"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>College ID</label>
+                <input type="text" id="collegeId" required>
+            </div>
+
+            <div class="form-group">
+                <label>Course</label>
+                <input type="text" id="studentCourse" required>
+            </div>
+
+            <div class="form-group">
+                <label>Year</label>
+                <select id="studentYear" required>
+                    <option value="">Select Year</option>
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                </select>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="cancel-btn" id="cancelBtn">
+                    Cancel
+                </button>
+
+                <button type="submit" class="save-btn">
+                    Save Student
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../js/student-management.js"></script>
+
+</body>
+</html>

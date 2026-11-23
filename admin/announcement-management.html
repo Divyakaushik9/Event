@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcement Management | CampusEvents</title>
+    <link rel="stylesheet" href="../css/announcement-management.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <a href="admin-dashboard.html" class="back-link">← Dashboard</a>
+        <h2>CampusEvents</h2>
+        <span class="admin-label">Admin Panel</span>
+    </header>
+
+    <main class="main-content">
+
+        <div class="page-heading">
+            <div>
+                <h1>Announcements & Notifications</h1>
+                <p>Create and manage announcements for campus users.</p>
+            </div>
+            <button class="primary-btn" id="addAnnouncementBtn">
+                + Create Announcement
+            </button>
+        </div>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <span>Total Announcements</span>
+                <h2 id="totalCount">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>Published</span>
+                <h2 id="publishedCount">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>Drafts</span>
+                <h2 id="draftCount">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>Expired</span>
+                <h2 id="expiredCount">0</h2>
+            </div>
+        </section>
+
+        <section class="announcement-panel">
+
+            <div class="toolbar">
+                <input type="text" id="searchInput"
+                    placeholder="Search announcements...">
+
+                <select id="statusFilter">
+                    <option value="all">All Status</option>
+                    <option value="Published">Published</option>
+                    <option value="Draft">Draft</option>
+                    <option value="Expired">Expired</option>
+                </select>
+
+                <select id="audienceFilter">
+                    <option value="all">All Audiences</option>
+                    <option value="All Users">All Users</option>
+                    <option value="Students">Students</option>
+                    <option value="Organizers">Organizers</option>
+                    <option value="Volunteers">Volunteers</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Audience</th>
+                            <th>Event</th>
+                            <th>Publish Date</th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="announcementTable">
+                    </tbody>
+                </table>
+            </div>
+
+            <p id="emptyMessage" class="empty-message">
+                No announcements found.
+            </p>
+
+        </section>
+    </main>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal" id="announcementModal">
+    <div class="modal-content">
+
+        <div class="modal-heading">
+            <h2 id="modalTitle">Create Announcement</h2>
+            <button type="button" class="close-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <form id="announcementForm">
+
+            <input type="hidden" id="announcementId">
+
+            <div class="form-group">
+                <label for="title">Announcement Title *</label>
+                <input type="text" id="title" maxlength="100"
+                    placeholder="Enter announcement title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message / Description *</label>
+                <textarea id="message" rows="4" maxlength="1000"
+                    placeholder="Write announcement details..." required></textarea>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="audience">Target Audience *</label>
+                    <select id="audience" required>
+                        <option value="">Select Audience</option>
+                        <option value="All Users">All Users</option>
+                        <option value="Students">Students</option>
+                        <option value="Organizers">Organizers</option>
+                        <option value="Volunteers">Volunteers</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="event">Related Event</label>
+                    <select id="event">
+                        <option value="">No Event Selected</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="publishDate">Publish Date *</label>
+                    <input type="date" id="publishDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date *</label>
+                    <input type="date" id="expiryDate" required>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="status">Announcement Status *</label>
+                <select id="status" required>
+                    <option value="Draft">Draft</option>
+                    <option value="Published">Published</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn" id="cancelBtn">
+                    Cancel
+                </button>
+                <button type="submit" class="primary-btn" id="saveBtn">
+                    Save Announcement
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="../js/announcement-management.js"></script>
+</body>
+</html>

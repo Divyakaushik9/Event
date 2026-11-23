@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer Dashboard | CampusEvents</title>
+    <link rel="stylesheet" href="../css/organizer-dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <h2>Campus<span>Events</span></h2>
+            <p>Organizer Panel</p>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="#overview" class="menu-link active">🏠 Overview</a>
+            <a href="#myEvents" class="menu-link">📅 My Assigned Events</a>
+            <a href="#participants" class="menu-link">👥 Participants</a>
+            <a href="#volunteers" class="menu-link">🙋 Volunteers</a>
+            <a href="#attendance" class="menu-link">📋 Attendance</a>
+            <a href="#competitions" class="menu-link">🏆 Competitions & Results</a>
+            <a href="#feedback" class="menu-link">⭐ Feedback</a>
+            <a href="#announcements" class="menu-link">📢 Announcements</a>
+            <a href="#profile" class="menu-link">👤 My Profile</a>
+        </nav>
+
+        <button class="logout-btn" id="logoutBtn">↪ Logout</button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div>
+                <h2>Organizer Dashboard</h2>
+                <p>Welcome back, <span id="organizerName">Organizer</span>!</p>
+            </div>
+            <div class="date-box" id="currentDate"></div>
+        </header>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="content-section active-section">
+            <div class="page-heading">
+                <h2>Dashboard Overview</h2>
+                <p>Manage your assigned events and activities.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div>
+                        <h3 id="totalEvents">0</h3>
+                        <p>Assigned Events</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div>
+                        <h3 id="totalParticipants">0</h3>
+                        <p>Participants</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🙋</div>
+                    <div>
+                        <h3 id="totalVolunteers">0</h3>
+                        <p>Volunteers</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div>
+                        <h3 id="totalAttendance">0</h3>
+                        <p>Attendance Records</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>My Assigned Events</h3>
+                    <button class="view-btn" data-target="myEvents">View All</button>
+                </div>
+                <div id="overviewEvents" class="event-grid"></div>
+            </div>
+
+            <div class="panel">
+                <h3>Quick Information</h3>
+                <p class="info-text">
+                    Here you can view your assigned events, check participants,
+                    manage volunteer attendance and monitor event activities.
+                </p>
+            </div>
+        </section>
+
+        <!-- ASSIGNED EVENTS -->
+        <section id="myEvents" class="content-section">
+            <div class="page-heading">
+                <h2>My Assigned Events</h2>
+                <p>Events assigned to you by the Admin.</p>
+            </div>
+
+            <div id="assignedEvents" class="event-grid"></div>
+        </section>
+
+        <!-- PARTICIPANTS -->
+        <section id="participants" class="content-section">
+            <div class="page-heading">
+                <h2>Participants</h2>
+                <p>View students registered for your assigned events.</p>
+            </div>
+
+            <div class="panel">
+                <div class="table-toolbar">
+                    <input type="text" id="participantSearch"
+                        placeholder="Search participant...">
+                    <select id="participantEventFilter">
+                        <option value="">All Assigned Events</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Email</th>
+                                <th>Event</th>
+                                <th>Registration Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="participantsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- VOLUNTEERS -->
+        <section id="volunteers" class="content-section">
+            <div class="page-heading">
+                <h2>Assigned Volunteers</h2>
+                <p>View volunteers working on your assigned events.</p>
+            </div>
+
+            <div class="panel">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Volunteer Name</th>
+                                <th>College ID</th>
+                                <th>Event</th>
+                                <th>Duty</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="volunteersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ATTENDANCE -->
+        <section id="attendance" class="content-section">
+            <div class="page-heading">
+                <h2>Participant Attendance</h2>
+                <p>Mark attendance for students registered in your events.</p>
+            </div>
+
+            <div class="panel">
+                <div class="table-toolbar">
+                    <select id="attendanceEventFilter">
+                        <option value="">Select Assigned Event</option>
+                    </select>
+                    <button class="primary-btn" id="saveAttendanceBtn">
+                        Save Attendance
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>College ID</th>
+                                <th>Event</th>
+                                <th>Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTable"></tbody>
+                    </table>
+                </div>
+
+                <p class="info-text">
+                    Select Present or Absent for each participant, then click Save Attendance.
+                </p>
+            </div>
+        </section>
+
+        <!-- COMPETITIONS -->
+        <section id="competitions" class="content-section">
+            <div class="page-heading">
+                <h2>Competitions & Results</h2>
+                <p>View competitions and results related to your events.</p>
+            </div>
+
+            <div class="panel">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Competition</th>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>First Position</th>
+                                <th>Second Position</th>
+                                <th>Third Position</th>
+                            </tr>
+                        </thead>
+                        <tbody id="competitionsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEEDBACK -->
+        <section id="feedback" class="content-section">
+            <div class="page-heading">
+                <h2>Event Feedback</h2>
+                <p>View feedback submitted by students.</p>
+            </div>
+
+            <div class="panel">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Event</th>
+                                <th>Rating</th>
+                                <th>Comment</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANNOUNCEMENTS -->
+        <section id="announcements" class="content-section">
+            <div class="page-heading">
+                <h2>Announcements</h2>
+                <p>Important notices and updates from Admin.</p>
+            </div>
+
+            <div id="announcementsList" class="announcement-list"></div>
+        </section>
+
+        <!-- PROFILE -->
+        <section id="profile" class="content-section">
+            <div class="page-heading">
+                <h2>My Profile</h2>
+                <p>View your organizer account details.</p>
+            </div>
+
+            <div class="panel profile-panel">
+                <div class="profile-avatar">👤</div>
+
+                <div class="profile-details">
+                    <h2 id="profileName">Organizer Name</h2>
+                    <p class="profile-role">Event Organizer</p>
+
+                    <div class="profile-info">
+                        <p><strong>Email:</strong> <span id="profileEmail">-</span></p>
+                        <p><strong>Phone:</strong> <span id="profilePhone">-</span></p>
+                        <p><strong>Department:</strong> <span id="profileDepartment">-</span></p>
+                        <p><strong>Designation:</strong> <span id="profileDesignation">-</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="../js/organizer-dashboard.js"></script>
+</body>
+</html>

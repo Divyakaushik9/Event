@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Management | CampusEvents</title>
+
+    <link rel="stylesheet" href="../css/volunteer-management.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="topbar">
+        <div>
+            <h1>Volunteer Management</h1>
+            <p>Manage student volunteers and their assigned duties.</p>
+        </div>
+
+        <a href="admin-dashboard.html" class="back-btn">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+            <span>🤝</span>
+            <div>
+                <p>Total Volunteers</p>
+                <h2 id="totalVolunteers">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <span>📅</span>
+            <div>
+                <p>Assigned Events</p>
+                <h2 id="assignedEvents">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <span>📋</span>
+            <div>
+                <p>Assigned Duties</p>
+                <h2 id="assignedDuties">0</h2>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- VOLUNTEER FORM -->
+
+    <section class="form-section">
+
+        <h2 id="formHeading">Assign New Volunteer</h2>
+
+        <form id="volunteerForm">
+
+            <input type="hidden" id="editIndex">
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+                    <label>Select Student</label>
+
+                    <select id="studentSelect" required>
+                        <option value="">Select Registered Student</option>
+                    </select>
+
+                    <small>Only students already added in Student Management will appear here.</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Event</label>
+
+                    <select id="event" required>
+                        <option value="">Select Event</option>
+                        <option value="Annual Cultural Fest">Annual Cultural Fest</option>
+                        <option value="Technical Workshop">Technical Workshop</option>
+                        <option value="Sports Competition">Sports Competition</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Assigned Duty</label>
+
+                    <select id="duty" required>
+                        <option value="">Select Duty</option>
+                        <option value="Registration Desk">Registration Desk</option>
+                        <option value="Crowd Management">Crowd Management</option>
+                        <option value="Stage Management">Stage Management</option>
+                        <option value="Technical Support">Technical Support</option>
+                        <option value="Event Coordination">Event Coordination</option>
+                        <option value="Photography">Photography</option>
+                        <option value="General Assistance">General Assistance</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Duty Date</label>
+                    <input type="date" id="dutyDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Volunteer Status</label>
+
+                    <select id="status" required>
+                        <option value="Active">Active</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-buttons">
+
+                <button type="submit" class="save-btn" id="submitBtn">
+                    + Assign Volunteer
+                </button>
+
+                <button type="reset" class="reset-btn" id="resetBtn">
+                    Clear Form
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- VOLUNTEER TABLE -->
+
+    <section class="table-section">
+
+        <div class="table-heading">
+
+            <div>
+                <h2>Volunteer Records</h2>
+                <p>View and manage assigned volunteers.</p>
+            </div>
+
+            <input type="search" id="searchInput"
+                   placeholder="Search volunteer...">
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Student Name</th>
+                        <th>Email</th>
+                        <th>College ID</th>
+                        <th>Event</th>
+                        <th>Duty</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="volunteerTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <p id="emptyMessage">No volunteer records found.</p>
+
+    </section>
+
+
+    <footer>
+        © 2026 CampusEvents | College Event Management System
+    </footer>
+
+</div>
+
+<script src="../js/volunteer-management.js"></script>
+
+</body>
+</html>

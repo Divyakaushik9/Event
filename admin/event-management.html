@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management | CampusEvents</title>
+
+    <link rel="stylesheet" href="../css/event-management.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="topbar">
+        <div>
+            <h1>Event Management</h1>
+            <p>Create, organize and manage college events.</p>
+        </div>
+
+        <a href="admin-dashboard.html" class="back-btn">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+
+    <!-- STATISTICS -->
+    <section class="stats-grid">
+
+        <div class="stat-card">
+            <span>📅</span>
+            <div>
+                <p>Total Events</p>
+                <h2 id="totalEvents">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <span>🏆</span>
+            <div>
+                <p>Competitions Enabled</p>
+                <h2 id="competitionEvents">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <span>🏪</span>
+            <div>
+                <p>Events With Stalls</p>
+                <h2 id="stallEvents">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <span>🤝</span>
+            <div>
+                <p>Events With Volunteers</p>
+                <h2 id="volunteerEvents">0</h2>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- EVENT FORM -->
+    <section class="form-section">
+
+        <h2 id="formHeading">Create New Event</h2>
+
+        <form id="eventForm">
+
+            <input type="hidden" id="editIndex">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Event Name</label>
+                    <input type="text" id="eventName"
+                           placeholder="Enter event name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Event Category</label>
+
+                    <select id="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Cultural">Cultural</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Workshop">Workshop</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Event Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Venue</label>
+                    <input type="text" id="venue"
+                           placeholder="Enter event venue" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <input type="time" id="startTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label>End Time</label>
+                    <input type="time" id="endTime" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Event Description</label>
+                    <textarea id="description"
+                              placeholder="Describe your event..."
+                              rows="4" required></textarea>
+                </div>
+
+            </div>
+
+
+            <!-- OPTIONAL FEATURES -->
+            <div class="feature-section">
+
+                <h3>Event Facilities</h3>
+
+                <p>Select the facilities available for this event.</p>
+
+                <div class="feature-grid">
+
+                    <label class="feature-option">
+                        <input type="checkbox" id="stalls">
+                        <span>🏪 Stall Facility</span>
+                    </label>
+
+                    <label class="feature-option">
+                        <input type="checkbox" id="competitions">
+                        <span>🏆 Competitions</span>
+                    </label>
+
+                    <label class="feature-option">
+                        <input type="checkbox" id="results">
+                        <span>🥇 Result & Winners</span>
+                    </label>
+
+                    <label class="feature-option">
+                        <input type="checkbox" id="volunteers">
+                        <span>🤝 Volunteers</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                <button type="submit" class="save-btn" id="submitBtn">
+                    + Create Event
+                </button>
+
+                <button type="reset" class="reset-btn" id="resetBtn">
+                    Clear Form
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- EVENT RECORDS -->
+    <section class="table-section">
+
+        <div class="table-heading">
+
+            <div>
+                <h2>All Events</h2>
+                <p>View and manage all college events.</p>
+            </div>
+
+            <input type="search" id="searchInput"
+                   placeholder="Search events...">
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Event Name</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Venue</th>
+                        <th>Facilities</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="eventTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <p id="emptyMessage">No events found.</p>
+
+    </section>
+
+
+    <footer>
+        © 2026 CampusEvents | College Event Management System
+    </footer>
+
+</div>
+
+<script src="../js/event-management.js"></script>
+
+</body>
+</html>

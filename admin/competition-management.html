@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competition Management | CampusEvents</title>
+    <link rel="stylesheet" href="../css/competition-management.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header class="top-header">
+        <div>
+            <h1>🏆 Competition Management</h1>
+            <p>Manage competitions, participants and results.</p>
+        </div>
+
+        <a href="admin-dashboard.html" class="back-btn">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+    <!-- Statistics -->
+    <section class="stats-container">
+
+        <div class="stat-card">
+            <h3>Total Competitions</h3>
+            <p id="totalCompetitions">0</p>
+        </div>
+
+        <div class="stat-card active">
+            <h3>Active</h3>
+            <p id="activeCompetitions">0</p>
+        </div>
+
+        <div class="stat-card completed">
+            <h3>Completed</h3>
+            <p id="completedCompetitions">0</p>
+        </div>
+
+        <div class="stat-card participants">
+            <h3>Total Participants</h3>
+            <p id="totalParticipants">0</p>
+        </div>
+
+    </section>
+
+    <!-- Competition Table -->
+    <section class="main-card">
+
+        <div class="section-header">
+            <div>
+                <h2>All Competitions</h2>
+                <p>Add and manage college competitions.</p>
+            </div>
+
+            <button class="add-btn" id="addCompetitionBtn">
+                + Add Competition
+            </button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput"
+                placeholder="Search competition, event or category...">
+        </div>
+
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Competition Name</th>
+                        <th>Category</th>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Participants</th>
+                        <th>Status</th>
+                        <th>Results</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="competitionTableBody"></tbody>
+            </table>
+
+        </div>
+
+        <p id="emptyMessage" class="empty-message">
+            No competitions found.
+        </p>
+
+    </section>
+
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal" id="competitionModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2 id="modalTitle">Add Competition</h2>
+            <button type="button" class="close-btn" id="closeModal">×</button>
+        </div>
+
+        <form id="competitionForm">
+
+            <input type="hidden" id="competitionId">
+
+            <div class="form-group">
+                <label>Competition Name</label>
+                <input type="text" id="competitionName" required
+                    placeholder="Example: Singing Competition">
+            </div>
+
+            <div class="form-group">
+                <label>Competition Category</label>
+                <select id="competitionCategory" required>
+                    <option value="">Select Category</option>
+                    <option value="Singing">Singing</option>
+                    <option value="Dancing">Dancing</option>
+                    <option value="Quiz">Quiz</option>
+                    <option value="Coding">Coding</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Art & Craft">Art & Craft</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Event</label>
+                <select id="eventName" required>
+                    <option value="">Select Event</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Competition Date</label>
+                <input type="date" id="competitionDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>Venue</label>
+                <input type="text" id="competitionVenue" required
+                    placeholder="Enter venue">
+            </div>
+
+            <div class="form-group">
+                <label>Maximum Participants</label>
+                <input type="number" id="maxParticipants"
+                    min="1" required placeholder="Example: 50">
+            </div>
+
+            <div class="form-group">
+                <label>Registered Participants</label>
+                <input type="number" id="registeredParticipants"
+                    min="0" value="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Competition Status</label>
+                <select id="competitionStatus" required>
+                    <option value="Upcoming">Upcoming</option>
+                    <option value="Active">Active</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+
+            <h3 class="result-heading">Competition Results</h3>
+
+            <div class="form-group">
+                <label>🥇 First Position</label>
+                <input type="text" id="firstWinner"
+                    placeholder="Winner name">
+            </div>
+
+            <div class="form-group">
+                <label>🥈 Second Position</label>
+                <input type="text" id="secondWinner"
+                    placeholder="Winner name">
+            </div>
+
+            <div class="form-group">
+                <label>🥉 Third Position</label>
+                <input type="text" id="thirdWinner"
+                    placeholder="Winner name">
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="save-btn">
+                    Save Competition
+                </button>
+
+                <button type="button" class="cancel-btn" id="cancelBtn">
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../js/competition-management.js"></script>
+
+</body>
+</html>

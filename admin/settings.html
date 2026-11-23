@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Settings | CampusEvents</title>
+    <link rel="stylesheet" href="../css/settings.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="admin-dashboard.html" class="back-link">← Dashboard</a>
+    <h2>CampusEvents</h2>
+    <span class="admin-label">Admin Panel</span>
+</header>
+
+<main class="main-content">
+
+    <div class="page-heading">
+        <h1>Settings</h1>
+        <p>Manage your account and system preferences.</p>
+    </div>
+
+    <div class="settings-layout">
+
+        <aside class="settings-menu">
+            <button class="settings-tab active" data-target="profileSection">👤 Profile Settings</button>
+            <button class="settings-tab" data-target="passwordSection">🔒 Change Password</button>
+            <button class="settings-tab" data-target="systemSection">⚙️ System Settings</button>
+            <button class="settings-tab" data-target="eventSection">🎉 Event Settings</button>
+            <button class="settings-tab" data-target="notificationSection">🔔 Notification Settings</button>
+        </aside>
+
+        <div class="settings-content">
+
+            <!-- PROFILE SETTINGS -->
+            <section class="settings-section active" id="profileSection">
+                <div class="section-heading">
+                    <h2>Profile Settings</h2>
+                    <p>Update your administrator information.</p>
+                </div>
+
+                <form id="profileForm">
+
+                    <div class="form-group">
+                        <label for="adminName">Full Name</label>
+                        <input type="text" id="adminName" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminEmail">Email Address</label>
+                        <input type="email" id="adminEmail" placeholder="Enter email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminPhone">Phone Number</label>
+                        <input type="tel" id="adminPhone" maxlength="10"
+                            pattern="[0-9]{10}" placeholder="10-digit phone number">
+                    </div>
+
+                    <button type="submit" class="save-btn">Save Profile</button>
+                </form>
+            </section>
+
+            <!-- PASSWORD SETTINGS -->
+            <section class="settings-section" id="passwordSection">
+                <div class="section-heading">
+                    <h2>Change Password</h2>
+                    <p>Update your account password.</p>
+                </div>
+
+                <form id="passwordForm">
+
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" minlength="8" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" minlength="8" required>
+                    </div>
+
+                    <button type="submit" class="save-btn">Update Password</button>
+                </form>
+
+                <p class="security-note">
+                    Demo mode: Password changes are not stored. Secure password
+                    management will be implemented with the Java backend.
+                </p>
+            </section>
+
+            <!-- SYSTEM SETTINGS -->
+            <section class="settings-section" id="systemSection">
+                <div class="section-heading">
+                    <h2>System Settings</h2>
+                    <p>Manage basic website information.</p>
+                </div>
+
+                <form id="systemForm">
+
+                    <div class="form-group">
+                        <label for="websiteName">Website Name</label>
+                        <input type="text" id="websiteName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="collegeName">College Name</label>
+                        <input type="text" id="collegeName" placeholder="Enter college name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail">Contact Email</label>
+                        <input type="email" id="contactEmail" placeholder="Enter contact email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="websiteDescription">Website Description</label>
+                        <textarea id="websiteDescription" rows="4"
+                            placeholder="Enter website description"></textarea>
+                    </div>
+
+                    <button type="submit" class="save-btn">Save System Settings</button>
+                </form>
+            </section>
+
+            <!-- EVENT SETTINGS -->
+            <section class="settings-section" id="eventSection">
+                <div class="section-heading">
+                    <h2>Event Settings</h2>
+                    <p>Manage default event preferences.</p>
+                </div>
+
+                <form id="eventForm">
+
+                    <div class="form-group">
+                        <label for="registrationStatus">Event Registration</label>
+                        <select id="registrationStatus">
+                            <option value="enabled">Enabled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="defaultCapacity">Default Event Capacity</label>
+                        <input type="number" id="defaultCapacity" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="approvalRequired">Registration Approval</label>
+                        <select id="approvalRequired">
+                            <option value="yes">Admin Approval Required</option>
+                            <option value="no">Automatic Approval</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="save-btn">Save Event Settings</button>
+                </form>
+            </section>
+
+            <!-- NOTIFICATION SETTINGS -->
+            <section class="settings-section" id="notificationSection">
+                <div class="section-heading">
+                    <h2>Notification Settings</h2>
+                    <p>Manage your notification preferences.</p>
+                </div>
+
+                <form id="notificationForm">
+
+                    <label class="toggle-row">
+                        <div>
+                            <strong>New Event Notifications</strong>
+                            <p>Receive updates about newly created events.</p>
+                        </div>
+                        <input type="checkbox" id="eventNotifications">
+                    </label>
+
+                    <label class="toggle-row">
+                        <div>
+                            <strong>Registration Notifications</strong>
+                            <p>Receive updates about student registrations.</p>
+                        </div>
+                        <input type="checkbox" id="registrationNotifications">
+                    </label>
+
+                    <label class="toggle-row">
+                        <div>
+                            <strong>Stall Application Notifications</strong>
+                            <p>Receive updates about stall applications.</p>
+                        </div>
+                        <input type="checkbox" id="stallNotifications">
+                    </label>
+
+                    <label class="toggle-row">
+                        <div>
+                            <strong>Feedback Notifications</strong>
+                            <p>Receive updates about student feedback.</p>
+                        </div>
+                        <input type="checkbox" id="feedbackNotifications">
+                    </label>
+
+                    <button type="submit" class="save-btn">Save Notification Settings</button>
+                </form>
+            </section>
+
+        </div>
+    </div>
+
+    <p class="footer-note">CampusEvents | College Event Management System</p>
+
+</main>
+
+<script src="../js/settings.js"></script>
+</body>
+</html>

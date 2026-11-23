@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports | CampusEvents</title>
+    <link rel="stylesheet" href="../css/reports.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="admin-dashboard.html" class="back-link">← Dashboard</a>
+    <h2>CampusEvents</h2>
+    <span class="admin-label">Admin Panel</span>
+</header>
+
+<main class="main-content">
+
+    <div class="page-heading">
+        <div>
+            <h1>Reports & Analytics</h1>
+            <p>View and analyze your college event management records.</p>
+        </div>
+
+        <button class="export-btn" id="exportBtn">⬇ Export Report</button>
+    </div>
+
+    <!-- SUMMARY CARDS -->
+    <section class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon">👨‍🎓</div>
+            <div>
+                <p>Total Students</p>
+                <h2 id="studentCount">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">👨‍🏫</div>
+            <div>
+                <p>Total Organizers</p>
+                <h2 id="organizerCount">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🙋</div>
+            <div>
+                <p>Total Volunteers</p>
+                <h2 id="volunteerCount">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🎉</div>
+            <div>
+                <p>Total Events</p>
+                <h2 id="eventCount">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div>
+                <p>Registrations</p>
+                <h2 id="registrationCount">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🏪</div>
+            <div>
+                <p>Stall Applications</p>
+                <h2 id="stallCount">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div>
+                <p>Competitions</p>
+                <h2 id="competitionCount">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div>
+                <p>Feedback Records</p>
+                <h2 id="feedbackCount">0</h2>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filter-panel">
+        <h2>Report Filters</h2>
+
+        <div class="filter-row">
+            <div class="filter-group">
+                <label for="fromDate">From Date</label>
+                <input type="date" id="fromDate">
+            </div>
+
+            <div class="filter-group">
+                <label for="toDate">To Date</label>
+                <input type="date" id="toDate">
+            </div>
+
+            <div class="filter-group">
+                <label for="reportType">Report Type</label>
+                <select id="reportType">
+                    <option value="all">All Reports</option>
+                    <option value="events">Events</option>
+                    <option value="registrations">Registrations</option>
+                    <option value="stalls">Stall Applications</option>
+                    <option value="competitions">Competitions</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="attendance">Attendance</option>
+                </select>
+            </div>
+
+            <button class="filter-btn" id="applyFilterBtn">Apply Filters</button>
+            <button class="reset-btn" id="resetFilterBtn">Reset</button>
+        </div>
+    </section>
+
+    <!-- EVENT REPORT -->
+    <section class="report-panel">
+        <div class="section-heading">
+            <h2>Event-wise Report</h2>
+            <span class="section-tag">Events</span>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Registrations</th>
+                        <th>Stall Applications</th>
+                        <th>Competitions</th>
+                    </tr>
+                </thead>
+                <tbody id="eventReportTable"></tbody>
+            </table>
+        </div>
+        <p class="empty-message" id="eventEmpty">No event records found.</p>
+    </section>
+
+    <!-- OTHER REPORTS -->
+    <section class="report-grid">
+
+        <div class="report-panel">
+            <div class="section-heading">
+                <h2>Stall Applications</h2>
+                <span class="section-tag">Stalls</span>
+            </div>
+
+            <div class="mini-stats">
+                <div>
+                    <span>Total</span>
+                    <strong id="totalStalls">0</strong>
+                </div>
+                <div>
+                    <span>Approved</span>
+                    <strong id="approvedStalls">0</strong>
+                </div>
+                <div>
+                    <span>Pending</span>
+                    <strong id="pendingStalls">0</strong>
+                </div>
+                <div>
+                    <span>Rejected</span>
+                    <strong id="rejectedStalls">0</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-panel">
+            <div class="section-heading">
+                <h2>Competition Report</h2>
+                <span class="section-tag">Competitions</span>
+            </div>
+
+            <div class="mini-stats">
+                <div>
+                    <span>Total</span>
+                    <strong id="totalCompetitions">0</strong>
+                </div>
+                <div>
+                    <span>Upcoming</span>
+                    <strong id="upcomingCompetitions">0</strong>
+                </div>
+                <div>
+                    <span>Active</span>
+                    <strong id="activeCompetitions">0</strong>
+                </div>
+                <div>
+                    <span>Completed</span>
+                    <strong id="completedCompetitions">0</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-panel">
+            <div class="section-heading">
+                <h2>Feedback Report</h2>
+                <span class="section-tag">Feedback</span>
+            </div>
+
+            <div class="mini-stats">
+                <div>
+                    <span>Total Reviews</span>
+                    <strong id="totalFeedback">0</strong>
+                </div>
+                <div>
+                    <span>Average Rating</span>
+                    <strong id="averageRating">0</strong>
+                </div>
+                <div>
+                    <span>Pending</span>
+                    <strong id="pendingFeedback">0</strong>
+                </div>
+                <div>
+                    <span>Reviewed</span>
+                    <strong id="reviewedFeedback">0</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-panel">
+            <div class="section-heading">
+                <h2>Attendance Report</h2>
+                <span class="section-tag">Attendance</span>
+            </div>
+
+            <div class="mini-stats">
+                <div>
+                    <span>Total Records</span>
+                    <strong id="totalAttendance">0</strong>
+                </div>
+                <div>
+                    <span>Present</span>
+                    <strong id="presentAttendance">0</strong>
+                </div>
+                <div>
+                    <span>Absent</span>
+                    <strong id="absentAttendance">0</strong>
+                </div>
+                <div>
+                    <span>Other</span>
+                    <strong id="otherAttendance">0</strong>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <p class="footer-note">
+        CampusEvents | College Event Management System
+    </p>
+
+</main>
+
+<script src="../js/reports.js"></script>
+</body>
+</html>

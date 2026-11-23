@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Management | CampusEvents</title>
+    <link rel="stylesheet" href="../css/feedback-management.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header class="top-header">
+        <div>
+            <h1>⭐ Feedback Management</h1>
+            <p>View and manage student feedback and reviews.</p>
+        </div>
+
+        <a href="admin-dashboard.html" class="back-btn">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+    <!-- Statistics -->
+    <section class="stats-container">
+
+        <div class="stat-card">
+            <h3>Total Feedback</h3>
+            <p id="totalFeedback">0</p>
+        </div>
+
+        <div class="stat-card rating-card">
+            <h3>Average Rating</h3>
+            <p id="averageRating">0.0 ⭐</p>
+        </div>
+
+        <div class="stat-card pending-card">
+            <h3>Pending Reviews</h3>
+            <p id="pendingFeedback">0</p>
+        </div>
+
+        <div class="stat-card reviewed-card">
+            <h3>Reviewed</h3>
+            <p id="reviewedFeedback">0</p>
+        </div>
+
+    </section>
+
+    <!-- Feedback Table -->
+    <section class="main-card">
+
+        <div class="section-header">
+            <div>
+                <h2>Student Feedback</h2>
+                <p>Check ratings, comments and suggestions.</p>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-container">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search student or feedback..."
+            >
+
+            <select id="eventFilter">
+                <option value="">All Events</option>
+            </select>
+
+            <select id="statusFilter">
+                <option value="">All Status</option>
+                <option value="Pending">Pending</option>
+                <option value="Reviewed">Reviewed</option>
+            </select>
+
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Event</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="feedbackTableBody"></tbody>
+            </table>
+
+        </div>
+
+        <p id="emptyMessage" class="empty-message">
+            No feedback found.
+        </p>
+
+    </section>
+
+</div>
+
+<!-- View Feedback Modal -->
+<div class="modal" id="feedbackModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Feedback Details</h2>
+            <button type="button" class="close-btn" id="closeModal">×</button>
+        </div>
+
+        <div class="details-container">
+
+            <div class="detail-item">
+                <strong>Student Name</strong>
+                <p id="viewStudentName"></p>
+            </div>
+
+            <div class="detail-item">
+                <strong>Event Name</strong>
+                <p id="viewEventName"></p>
+            </div>
+
+            <div class="detail-item">
+                <strong>Rating</strong>
+                <p id="viewRating"></p>
+            </div>
+
+            <div class="detail-item">
+                <strong>Feedback Date</strong>
+                <p id="viewDate"></p>
+            </div>
+
+            <div class="detail-item">
+                <strong>Comment / Suggestion</strong>
+                <p id="viewComment"></p>
+            </div>
+
+            <div class="detail-item">
+                <strong>Status</strong>
+                <p id="viewStatus"></p>
+            </div>
+
+        </div>
+
+        <button type="button" class="close-modal-btn" id="closeModalBtn">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<script src="../js/feedback-management.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | CampusEvents</title>
+
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <span class="logo-icon">🎓</span>
+            <h2>CampusEvents</h2>
+        </div>
+
+        <div class="admin-info">
+            <div class="admin-avatar">A</div>
+            <div>
+                <h3>Administrator</h3>
+                <p>System Admin</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <p class="menu-heading">MAIN MENU</p>
+
+            <a href="#overview" class="menu-link active">
+                <span>▦</span> Overview
+            </a>
+
+            <a href="student-management.html" class="menu-link">
+                <span>👨‍🎓</span> Students
+            </a>
+
+           <a href="organizer-management.html" class="menu-link">
+                <span>👨‍🏫</span> Organizers
+           </a>
+
+           <a href="volunteer-management.html" class="menu-link">
+                <span>🤝</span> Volunteers
+           </a>
+
+            <a href="event-management.html" class="menu-link">
+                <span>📅</span> Events
+            </a>
+
+            <a href="stall-management.html" class="menu-link">
+                <span>🏪</span> Stall Management
+            </a>
+
+            <a href="competition-management.html" class="menu-link">
+                <span>🏆</span> Competitions
+            </a>
+
+            <a href="feedback-management.html" class="menu-link">
+                <span>⭐</span> Feedback
+            </a>
+
+            <a href="announcement-management.html" class="menu-link">
+                <span>📢</span> Announcements
+            </a>
+
+            <a href="reports.html" class="menu-link">
+                <span>📊</span> Reports
+            </a>
+
+            <p class="menu-heading">OTHER</p>
+
+            <a href="settings.html" class="menu-link">
+                <span>⚙️</span> Settings
+            </a>
+
+        </nav>
+
+        <button class="logout-btn" id="logoutBtn">
+            ↪ Logout
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle">☰</button>
+
+                <div>
+                    <h2>Admin Dashboard</h2>
+                    <p>Welcome back, Administrator!</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="date-box" id="currentDate"></div>
+
+                <div class="notification-icon">
+                    🔔
+                    <span class="notification-dot"></span>
+                </div>
+
+                <div class="profile-circle">A</div>
+            </div>
+
+        </header>
+
+
+        <!-- OVERVIEW -->
+        <section class="content-section" id="overview">
+
+            <div class="section-heading">
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p>Here's what's happening at your college.</p>
+                </div>
+
+                <button class="primary-btn" onclick="showMessage('Event creation will be connected soon.')">
+                    + Create Event
+                </button>
+            </div>
+
+
+            <!-- STATISTICS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">👨‍🎓</div>
+                    <div>
+                        <p>Total Students</p>
+                        <h2>1,250</h2>
+                        <span>Registered students</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">📅</div>
+                    <div>
+                        <p>Total Events</p>
+                        <h2>24</h2>
+                        <span>College events</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">🤝</div>
+                    <div>
+                        <p>Volunteers</p>
+                        <h2>86</h2>
+                        <span>Active volunteers</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">🏪</div>
+                    <div>
+                        <p>Total Stalls</p>
+                        <h2>18</h2>
+                        <span>Stall applications</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- LOWER DASHBOARD -->
+            <div class="dashboard-grid">
+
+                <div class="panel recent-events">
+
+                    <div class="panel-heading">
+                        <h2>Recent Events</h2>
+                        <a href="#events">View All</a>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <strong>12</strong>
+                            <span>DEC</span>
+                        </div>
+
+                        <div class="event-details">
+                            <h3>Annual Cultural Fest</h3>
+                            <p>📍 College Auditorium</p>
+                        </div>
+
+                        <span class="status upcoming">Upcoming</span>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <strong>18</strong>
+                            <span>DEC</span>
+                        </div>
+
+                        <div class="event-details">
+                            <h3>Technical Workshop</h3>
+                            <p>📍 Computer Lab</p>
+                        </div>
+
+                        <span class="status ongoing">Ongoing</span>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <strong>22</strong>
+                            <span>DEC</span>
+                        </div>
+
+                        <div class="event-details">
+                            <h3>Sports Competition</h3>
+                            <p>📍 Sports Ground</p>
+                        </div>
+
+                        <span class="status completed">Completed</span>
+                    </div>
+
+                </div>
+
+
+                <div class="panel quick-actions">
+
+                    <div class="panel-heading">
+                        <h2>Quick Actions</h2>
+                    </div>
+
+                    <button onclick="showMessage('Add Student feature will be connected soon.')">
+                        👨‍🎓 Add Student
+                    </button>
+
+                    <button onclick="showMessage('Add Organizer feature will be connected soon.')">
+                        👨‍🏫 Add Organizer
+                    </button>
+
+                    <button onclick="showMessage('Create Event feature will be connected soon.')">
+                        📅 Create New Event
+                    </button>
+
+                    <button onclick="showMessage('Announcement feature will be connected soon.')">
+                        📢 Send Announcement
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STUDENTS -->
+        <section class="content-section" id="students">
+            <div class="section-heading">
+                <div>
+                    <h1>Student Management</h1>
+                    <p>Manage student accounts and registrations.</p>
+                </div>
+                <button class="primary-btn" onclick="showMessage('Add Student feature will be connected soon.')">
+                    + Add Student
+                </button>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>👨‍🎓</span>
+                <h2>Student Management</h2>
+                <p>Student records, profiles and registrations will be managed here.</p>
+            </div>
+        </section>
+
+
+        <!-- ORGANIZERS -->
+        <section class="content-section" id="organizers">
+            <div class="section-heading">
+                <div>
+                    <h1>Organizer Management</h1>
+                    <p>Manage faculty organizers and event assignments.</p>
+                </div>
+                <button class="primary-btn" onclick="showMessage('Add Organizer feature will be connected soon.')">
+                    + Add Organizer
+                </button>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>👨‍🏫</span>
+                <h2>Organizer Management</h2>
+                <p>Organizer profiles and assigned events will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- VOLUNTEERS -->
+        <section class="content-section" id="volunteers">
+            <div class="section-heading">
+                <div>
+                    <h1>Volunteer Management</h1>
+                    <p>Manage student volunteers and their duties.</p>
+                </div>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>🤝</span>
+                <h2>Volunteer Management</h2>
+                <p>Volunteer assignments and activities will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- EVENTS -->
+        <section class="content-section" id="events">
+            <div class="section-heading">
+                <div>
+                    <h1>Event Management</h1>
+                    <p>Create and manage college events.</p>
+                </div>
+                <button class="primary-btn" onclick="showMessage('Create Event feature will be connected soon.')">
+                    + Create Event
+                </button>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>📅</span>
+                <h2>Event Management</h2>
+                <p>Event details, categories, schedules and registrations will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- STALLS -->
+        <section class="content-section" id="stalls">
+            <div class="section-heading">
+                <div>
+                    <h1>Stall Management</h1>
+                    <p>Manage stall applications and allotments.</p>
+                </div>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>🏪</span>
+                <h2>Stall Management</h2>
+                <p>Stall applications, approvals and availability will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- COMPETITIONS -->
+        <section class="content-section" id="competitions">
+            <div class="section-heading">
+                <div>
+                    <h1>Competitions & Results</h1>
+                    <p>Manage competitions and winner announcements.</p>
+                </div>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>🏆</span>
+                <h2>Competition Management</h2>
+                <p>Competition entries, results and winners will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- FEEDBACK -->
+        <section class="content-section" id="feedback">
+            <div class="section-heading">
+                <div>
+                    <h1>Feedback Management</h1>
+                    <p>View feedback submitted by students.</p>
+                </div>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>⭐</span>
+                <h2>Student Feedback</h2>
+                <p>Student ratings, comments and suggestions will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- ANNOUNCEMENTS -->
+        <section class="content-section" id="announcements">
+            <div class="section-heading">
+                <div>
+                    <h1>Announcements</h1>
+                    <p>Share important updates with students and organizers.</p>
+                </div>
+                <button class="primary-btn" onclick="showMessage('Announcement feature will be connected soon.')">
+                    + New Announcement
+                </button>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>📢</span>
+                <h2>Announcements</h2>
+                <p>College announcements and notifications will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- REPORTS -->
+        <section class="content-section" id="reports">
+            <div class="section-heading">
+                <div>
+                    <h1>Reports & Statistics</h1>
+                    <p>View event and registration reports.</p>
+                </div>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>📊</span>
+                <h2>Reports & Statistics</h2>
+                <p>Event reports, attendance and registration statistics will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- SETTINGS -->
+        <section class="content-section" id="settings">
+            <div class="section-heading">
+                <div>
+                    <h1>Settings</h1>
+                    <p>Manage dashboard settings.</p>
+                </div>
+            </div>
+
+            <div class="panel placeholder-panel">
+                <span>⚙️</span>
+                <h2>System Settings</h2>
+                <p>System configuration and account settings will appear here.</p>
+            </div>
+        </section>
+
+
+        <footer>
+            <p>© 2026 CampusEvents | College Event Management System</p>
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="../js/admin-dashboard.js"></script>
+
+</body>
+</html>
