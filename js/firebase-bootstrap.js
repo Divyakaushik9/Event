@@ -65,6 +65,10 @@
         return typeof value === "string" ? value : JSON.stringify(value);
     }
 
+    function toDatabaseValue(value) {
+        return JSON.parse(value);
+    }
+
     function dispatchDataChange(key) {
         window.dispatchEvent(new CustomEvent("campusdatachange", {
             detail: { key: key }
@@ -93,7 +97,7 @@
             return;
         }
 
-        database.ref(dataPath).child(key).set(value).catch(error => {
+        database.ref(dataPath).child(key).set(toDatabaseValue(value)).catch(error => {
             showStatus("Firebase write failed. Local data is preserved.", error);
         });
     }
@@ -175,7 +179,7 @@
                 if (!Object.prototype.hasOwnProperty.call(remoteData, key)) {
                     const localValue = localStorageGetItem.call(localStorage, key);
                     uploads.push(
-                        dataReference.child(key).set(localValue)
+                        dataReference.child(key).set(toDatabaseValue(localValue))
                     );
                 }
             });
