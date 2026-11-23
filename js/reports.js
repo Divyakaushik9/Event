@@ -341,3 +341,5 @@ document.getElementById("exportBtn").addEventListener("click", function() {
 
 // Initial load
 refreshReports();
+
+window.addEventListener("campusdatachange", refreshReports);

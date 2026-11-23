@@ -211,3 +211,31 @@ loadProfile();
 loadSystemSettings();
 loadEventSettings();
 loadNotificationSettings();
+
+window.addEventListener("campusdatachange", function(event) {
+    const settingsLoaders = {
+        campusAdminProfile: function() {
+            profile = getSettings("campusAdminProfile", defaultProfile);
+            loadProfile();
+        },
+        campusSystemSettings: function() {
+            system = getSettings("campusSystemSettings", defaultSystem);
+            loadSystemSettings();
+        },
+        campusEventSettings: function() {
+            eventSettings = getSettings("campusEventSettings", defaultEvent);
+            loadEventSettings();
+        },
+        campusNotificationSettings: function() {
+            notificationSettings = getSettings(
+                "campusNotificationSettings",
+                defaultNotifications
+            );
+            loadNotificationSettings();
+        }
+    };
+
+    if (settingsLoaders[event.detail.key]) {
+        settingsLoaders[event.detail.key]();
+    }
+});

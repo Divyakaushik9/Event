@@ -382,3 +382,12 @@ searchInput.addEventListener("input", function() {
 // INITIAL DISPLAY
 
 displayEvents();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key !== "campusEvents") {
+        return;
+    }
+
+    events = JSON.parse(localStorage.getItem("campusEvents") || "[]");
+    displayEvents();
+});

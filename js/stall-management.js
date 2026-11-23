@@ -366,3 +366,14 @@ searchInput.addEventListener("input", function() {
 // Initial display
 loadEvents();
 displayApplications();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key === "campusEvents") {
+        loadEvents();
+    }
+
+    if (event.detail.key === STORAGE_KEY) {
+        applications = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        displayApplications();
+    }
+});

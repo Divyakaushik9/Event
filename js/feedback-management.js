@@ -339,3 +339,14 @@ statusFilter.addEventListener("change", applyFilters);
 // Initial display
 loadEvents();
 displayFeedback();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key === "campusEvents") {
+        loadEvents();
+    }
+
+    if (event.detail.key === STORAGE_KEY) {
+        feedbackList = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        displayFeedback();
+    }
+});

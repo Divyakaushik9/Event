@@ -326,3 +326,12 @@ searchInput.addEventListener("input", function() {
 // INITIAL DISPLAY
 
 displayOrganizers();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key !== "campusOrganizers") {
+        return;
+    }
+
+    organizers = JSON.parse(localStorage.getItem("campusOrganizers") || "[]");
+    displayOrganizers();
+});

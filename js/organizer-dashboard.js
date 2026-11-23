@@ -563,3 +563,5 @@ function initializeDashboard() {
 }
 
 initializeDashboard();
+
+window.addEventListener("campusdatachange", initializeDashboard);

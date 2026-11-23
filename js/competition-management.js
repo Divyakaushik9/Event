@@ -411,3 +411,14 @@ searchInput.addEventListener("input", function() {
 // Initial display
 loadEvents();
 displayCompetitions();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key === "campusEvents") {
+        loadEvents();
+    }
+
+    if (event.detail.key === STORAGE_KEY) {
+        competitions = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        displayCompetitions();
+    }
+});

@@ -105,6 +105,12 @@ window.addEventListener("storage", function(event) {
     }
 });
 
+window.addEventListener("campusdatachange", function(event) {
+    if (dashboardDataKeys.includes(event.detail.key)) {
+        refreshDashboardData();
+    }
+});
+
 window.addEventListener("pageshow", refreshDashboardData);
 window.addEventListener("focus", refreshDashboardData);
 

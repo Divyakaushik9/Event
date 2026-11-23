@@ -407,3 +407,15 @@ searchInput.addEventListener("input", function() {
 loadStudents();
 
 displayVolunteers();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key === "campusStudents") {
+        students = JSON.parse(localStorage.getItem("campusStudents") || "[]");
+        loadStudents();
+    }
+
+    if (event.detail.key === "campusVolunteers") {
+        volunteers = JSON.parse(localStorage.getItem("campusVolunteers") || "[]");
+        displayVolunteers();
+    }
+});

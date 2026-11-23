@@ -322,3 +322,14 @@ document.getElementById("audienceFilter").addEventListener("change", filterAnnou
 // Initial setup
 loadEvents();
 displayAnnouncements();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key === "campusEvents") {
+        loadEvents();
+    }
+
+    if (event.detail.key === STORAGE_KEY) {
+        announcementList = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        displayAnnouncements();
+    }
+});

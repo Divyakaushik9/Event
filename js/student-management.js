@@ -243,3 +243,12 @@ searchInput.addEventListener("input", function() {
 // INITIAL DISPLAY
 
 displayStudents();
+
+window.addEventListener("campusdatachange", function(event) {
+    if (event.detail.key !== "campusStudents") {
+        return;
+    }
+
+    students = JSON.parse(localStorage.getItem("campusStudents") || "[]");
+    displayStudents();
+});
