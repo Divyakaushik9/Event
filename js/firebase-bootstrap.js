@@ -66,7 +66,11 @@
     }
 
     function toDatabaseValue(value) {
-        return JSON.parse(value);
+        try {
+            return JSON.parse(value);
+        } catch (error) {
+            return String(value);
+        }
     }
 
     function dispatchDataChange(key) {

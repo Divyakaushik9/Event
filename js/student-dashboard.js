@@ -30,8 +30,11 @@ function todayDate() {
 // STUDENT PROFILE
 function loadStudent() {
     const students = getData("campusStudents");
+    const currentEmail = localStorage.getItem("campusCurrentStudent");
 
-    currentStudent = students[0] || {
+    currentStudent = students.find(student =>
+        (student.email || "").toLowerCase() === (currentEmail || "").toLowerCase()
+    ) || students[0] || {
         fullName: "Demo Student",
         email: "student@example.com",
         phone: "Not Available",
