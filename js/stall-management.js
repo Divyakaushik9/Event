@@ -1,51 +1,34 @@
 const STORAGE_KEY = "campusStallApplications";
 
-let applications = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-// Demo applications
-if (applications.length === 0) {
-
-    applications = [
-        {
-            id: 1,
-            studentName: "Rahul Sharma",
-            studentEmail: "rahul@example.com",
-            studentPhone: "9876543210",
-            stallName: "Food Corner",
-            stallCategory: "Food",
-            eventName: "Annual Cultural Fest",
-            description: "Food and snacks stall",
-            stallNumber: "",
-            status: "Pending"
-        },
-        {
-            id: 2,
-            studentName: "Priya Verma",
-            studentEmail: "priya@example.com",
-            studentPhone: "9876543211",
-            stallName: "Handmade Crafts",
-            stallCategory: "Handmade Products",
-            eventName: "Technical Workshop",
-            description: "Handmade decorative products",
-            stallNumber: "S-101",
-            status: "Approved"
-        },
-        {
-            id: 3,
-            studentName: "Aman Kumar",
-            studentEmail: "aman@example.com",
-            studentPhone: "9876543212",
-            stallName: "Art Gallery",
-            stallCategory: "Other",
-            eventName: "Sports Competition",
-            description: "Art and creative products",
-            stallNumber: "",
-            status: "Rejected"
-        }
-    ];
-
-    saveData();
+function readData(key) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(value) ? value : [];
+    } catch (error) {
+        return [];
+    }
 }
+
+let applications = readData(STORAGE_KEY);
+
+function normalizeApplication(item, index) {
+    return {
+        ...item,
+        id: item.id || item.applicationId || `stall-${index + 1}`,
+        studentEmail: item.studentEmail || item.email || "",
+        studentPhone: item.studentPhone || item.phone || "",
+        stallName: item.stallName || (
+            item.category || item.stallCategory
+                ? (item.category || item.stallCategory) + " Stall"
+                : ""
+        ),
+        stallCategory: item.stallCategory || item.category || "",
+        description: item.description || "",
+        stallNumber: item.stallNumber || ""
+    };
+}
+
+applications = applications.map(normalizeApplication);
 
 // Save data
 function saveData() {
@@ -71,15 +54,15 @@ function loadEvents() {
 
     const savedEvents = JSON.parse(localStorage.getItem("campusEvents")) || [];
 
-    const eventNames = savedEvents.length > 0
-        ? savedEvents.map(event => event.name)
-        : [
-            "Annual Cultural Fest",
-            "Technical Workshop",
-            "Sports Competition"
-        ];
+    const eventNames = savedEvents
+        .map(event => event.name || event.eventName)
+        .concat(applications.map(application => application.eventName));
 
-    eventNames.forEach(name => {
+    const uniqueEventNames = eventNames.filter((name, index, names) =>
+        name && names.indexOf(name) === index
+    );
+
+    uniqueEventNames.forEach(name => {
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
@@ -226,15 +209,26 @@ function editApplication(id) {
     loadEvents();
 
     document.getElementById("applicationId").value = item.id;
-    document.getElementById("studentName").value = item.studentName;
-    document.getElementById("studentEmail").value = item.studentEmail;
-    document.getElementById("studentPhone").value = item.studentPhone;
-    document.getElementById("stallName").value = item.stallName;
-    document.getElementById("stallCategory").value = item.stallCategory;
-    document.getElementById("eventName").value = item.eventName;
-    document.getElementById("stallDescription").value = item.description;
-    document.getElementById("stallNumber").value = item.stallNumber;
-    document.getElementById("stallStatus").value = item.status;
+    document.getElementById("studentName").value = item.studentName || "";
+    document.getElementById("studentEmail").value =
+        item.studentEmail || item.email || "";
+    document.getElementById("studentPhone").value =
+        item.studentPhone || item.phone || "";
+    document.getElementById("stallName").value =
+        item.stallName || (
+            item.category || item.stallCategory
+                ? (item.category || item.stallCategory) + " Stall"
+                : ""
+        );
+    document.getElementById("stallCategory").value =
+        item.stallCategory || item.category || "";
+    document.getElementById("eventName").value = item.eventName || "";
+    document.getElementById("stallDescription").value = item.description || "";
+    document.getElementById("stallNumber").value =
+        item.stallNumber && item.stallNumber !== "undefined"
+            ? item.stallNumber
+            : "";
+    document.getElementById("stallStatus").value = item.status || "Pending";
 
     document.getElementById("modalTitle").textContent =
         "Edit Stall Application";
@@ -264,7 +258,9 @@ stallForm.addEventListener("submit", function(event) {
 
     if (id) {
 
-        const index = applications.findIndex(item => item.id === Number(id));
+        const index = applications.findIndex(item =>
+            String(item.id) === String(id)
+        );
 
         if (index !== -1) {
             applications[index] = application;
@@ -299,19 +295,13 @@ function updateStatus(id, status) {
             return;
         }
 
-        const stallNumber = prompt(
-            "Enter stall number for allotment:",
-            item.stallNumber || ""
-        );
-
-        if (stallNumber === null) return;
-
-        if (stallNumber.trim() === "") {
-            alert("Please enter a stall number.");
+        if (!String(item.stallNumber || "").trim()) {
+            editApplication(id);
+            document.getElementById("stallStatus").value = "Approved";
+            document.getElementById("stallNumber").focus();
+            alert("Enter the stall number and save the application.");
             return;
         }
-
-        item.stallNumber = stallNumber.trim();
     }
 
     if (status === "Rejected") {
@@ -373,7 +363,7 @@ window.addEventListener("campusdatachange", function(event) {
     }
 
     if (event.detail.key === STORAGE_KEY) {
-        applications = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        applications = readData(STORAGE_KEY).map(normalizeApplication);
         displayApplications();
     }
 });

@@ -1,61 +1,68 @@
 const STORAGE_KEY = "campusCompetitions";
 
-let competitions = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+function readData(key) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(value) ? value : [];
+    } catch (error) {
+        return [];
+    }
+}
 
-// Demo competitions
-if (competitions.length === 0) {
+let competitions = readData(STORAGE_KEY);
 
-    competitions = [
-        {
-            id: 1,
-            name: "Singing Competition",
-            category: "Singing",
-            eventName: "Annual Cultural Fest",
-            date: "2026-11-15",
-            venue: "Main Auditorium",
-            maxParticipants: 50,
-            registeredParticipants: 32,
-            status: "Upcoming",
-            firstWinner: "",
-            secondWinner: "",
-            thirdWinner: ""
-        },
-        {
-            id: 2,
-            name: "Coding Challenge",
-            category: "Coding",
-            eventName: "Technical Workshop",
-            date: "2026-11-18",
-            venue: "Computer Lab",
-            maxParticipants: 40,
-            registeredParticipants: 40,
-            status: "Active",
-            firstWinner: "",
-            secondWinner: "",
-            thirdWinner: ""
-        },
-        {
-            id: 3,
-            name: "Quiz Competition",
-            category: "Quiz",
-            eventName: "Annual Cultural Fest",
-            date: "2026-10-20",
-            venue: "Seminar Hall",
-            maxParticipants: 30,
-            registeredParticipants: 25,
-            status: "Completed",
-            firstWinner: "Rahul Sharma",
-            secondWinner: "Priya Verma",
-            thirdWinner: "Aman Kumar"
-        }
-    ];
+const demoCompetitionNames = new Set([
+    "Singing Competition",
+    "Coding Challenge",
+    "Quiz Competition"
+]);
 
+const filteredDemoCompetitions = competitions.filter(item =>
+    !(
+        demoCompetitionNames.has(item.name) &&
+        [32, 40, 25].includes(Number(item.registeredParticipants))
+    )
+);
+
+if (filteredDemoCompetitions.length !== competitions.length) {
+    competitions = filteredDemoCompetitions;
     saveData();
 }
 
 // Save data
 function saveData() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(competitions));
+}
+
+function getRegisteredParticipantCount(eventName) {
+    const registrations = readData("campusRegistrations");
+    const uniqueStudents = new Set();
+
+    registrations.forEach(registration => {
+        const registeredEvent = registration.eventName || registration.event;
+        if (registeredEvent !== eventName) return;
+
+        const studentId =
+            registration.studentId ||
+            registration.email ||
+            registration.collegeId ||
+            registration.collegeID ||
+            registration.studentName;
+
+        if (studentId) {
+            uniqueStudents.add(String(studentId).trim().toLowerCase());
+        }
+    });
+
+    return uniqueStudents.size;
+}
+
+function syncRegisteredParticipants() {
+    competitions = competitions.map(item => ({
+        ...item,
+        registeredParticipants:
+            getRegisteredParticipantCount(item.eventName || item.event)
+    }));
 }
 
 // HTML elements
@@ -79,15 +86,17 @@ function loadEvents() {
     const savedEvents =
         JSON.parse(localStorage.getItem("campusEvents")) || [];
 
-    const eventNames = savedEvents.length > 0
-        ? savedEvents.map(event => event.name)
-        : [
-            "Annual Cultural Fest",
-            "Technical Workshop",
-            "Sports Competition"
-        ];
+    const eventNames = savedEvents
+        .map(event => event.name || event.eventName)
+        .concat(competitions.map(competition =>
+            competition.eventName || competition.event
+        ));
 
-    eventNames.forEach(name => {
+    const uniqueEventNames = eventNames.filter((name, index, names) =>
+        name && names.indexOf(name) === index
+    );
+
+    uniqueEventNames.forEach(name => {
 
         const option = document.createElement("option");
 
@@ -100,6 +109,7 @@ function loadEvents() {
 
 // Statistics
 function updateStatistics() {
+    syncRegisteredParticipants();
 
     document.getElementById("totalCompetitions").textContent =
         competitions.length;
@@ -146,6 +156,7 @@ function createButton(text, className, action) {
 function displayCompetitions(data = competitions) {
 
     tableBody.replaceChildren();
+    syncRegisteredParticipants();
 
     document.getElementById("emptyMessage").style.display =
         data.length === 0 ? "block" : "none";
@@ -162,7 +173,7 @@ function displayCompetitions(data = competitions) {
 
         createCell(
             row,
-            `${item.registeredParticipants}/${item.maxParticipants}`
+            `${getRegisteredParticipantCount(item.eventName || item.event)}/${item.maxParticipants}`
         );
 
         // Status
@@ -237,6 +248,11 @@ function openModal() {
     competitionModal.style.display = "flex";
 }
 
+eventSelect.addEventListener("change", function() {
+    document.getElementById("registeredParticipants").value =
+        getRegisteredParticipantCount(this.value);
+});
+
 // Close modal
 function closeModal() {
     competitionModal.style.display = "none";
@@ -268,7 +284,7 @@ function editCompetition(id) {
     document.getElementById("competitionVenue").value = item.venue;
     document.getElementById("maxParticipants").value = item.maxParticipants;
     document.getElementById("registeredParticipants").value =
-        item.registeredParticipants;
+        getRegisteredParticipantCount(item.eventName || item.event);
 
     document.getElementById("competitionStatus").value = item.status;
     document.getElementById("firstWinner").value = item.firstWinner;
@@ -292,7 +308,9 @@ competitionForm.addEventListener("submit", function(event) {
         Number(document.getElementById("maxParticipants").value);
 
     const registeredParticipants =
-        Number(document.getElementById("registeredParticipants").value);
+        getRegisteredParticipantCount(
+            document.getElementById("eventName").value
+        );
 
     if (registeredParticipants > maxParticipants) {
         alert("Registered participants cannot exceed maximum participants.");
@@ -415,6 +433,11 @@ displayCompetitions();
 window.addEventListener("campusdatachange", function(event) {
     if (event.detail.key === "campusEvents") {
         loadEvents();
+    }
+
+    if (event.detail.key === "campusRegistrations") {
+        syncRegisteredParticipants();
+        displayCompetitions();
     }
 
     if (event.detail.key === STORAGE_KEY) {
