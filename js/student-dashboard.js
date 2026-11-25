@@ -342,7 +342,7 @@ function loadStallApplications() {
     if (applications.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="4" class="empty-message">
+                <td colspan="5" class="empty-message">
                     You have not submitted any stall applications.
                 </td>
             </tr>`;
@@ -354,6 +354,7 @@ function loadStallApplications() {
             <td>${escapeHTML(item.eventName || item.event || "-")}</td>
             <td>${escapeHTML(item.category || "-")}</td>
             <td>${escapeHTML(item.description || "-")}</td>
+            <td>${escapeHTML(item.stallNumber || "-")}</td>
             <td><span class="status">${escapeHTML(item.status || "Pending")}</span></td>
         </tr>
     `).join("");

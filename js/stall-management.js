@@ -35,6 +35,20 @@ function saveData() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(applications));
 }
 
+function generateStallNumber() {
+    const usedNumbers = new Set(
+        applications
+            .map(item => String(item.stallNumber || "").trim().toUpperCase())
+            .filter(Boolean)
+    );
+
+    let stallNumber = 101;
+    while (usedNumbers.has("S-" + stallNumber)) {
+        stallNumber += 1;
+    }
+    return "S-" + stallNumber;
+}
+
 // HTML elements
 const tableBody = document.getElementById("stallTableBody");
 const searchInput = document.getElementById("searchInput");
@@ -202,7 +216,9 @@ document.getElementById("cancelBtn").addEventListener("click", closeModal);
 // Edit application
 function editApplication(id) {
 
-    const item = applications.find(app => app.id === id);
+    const item = applications.find(app =>
+        String(app.id) === String(id)
+    );
 
     if (!item) return;
 
@@ -244,7 +260,7 @@ stallForm.addEventListener("submit", function(event) {
     const id = document.getElementById("applicationId").value;
 
     const application = {
-        id: id ? Number(id) : Date.now(),
+        id: id ? String(id) : "stall-" + Date.now(),
         studentName: document.getElementById("studentName").value.trim(),
         studentEmail: document.getElementById("studentEmail").value.trim(),
         studentPhone: document.getElementById("studentPhone").value.trim(),
@@ -284,7 +300,9 @@ stallForm.addEventListener("submit", function(event) {
 // Update status
 function updateStatus(id, status) {
 
-    const item = applications.find(app => app.id === id);
+    const item = applications.find(app =>
+        String(app.id) === String(id)
+    );
 
     if (!item) return;
 
@@ -295,13 +313,9 @@ function updateStatus(id, status) {
             return;
         }
 
-        if (!String(item.stallNumber || "").trim()) {
-            editApplication(id);
-            document.getElementById("stallStatus").value = "Approved";
-            document.getElementById("stallNumber").focus();
-            alert("Enter the stall number and save the application.");
-            return;
-        }
+        item.stallNumber = String(item.stallNumber || "").trim()
+            ? item.stallNumber
+            : generateStallNumber();
     }
 
     if (status === "Rejected") {
@@ -311,6 +325,7 @@ function updateStatus(id, status) {
         );
 
         if (!confirmReject) return;
+        item.stallNumber = "";
     }
 
     item.status = status;
@@ -318,7 +333,9 @@ function updateStatus(id, status) {
     saveData();
     displayApplications();
 
-    alert("Application status updated successfully!");
+    alert(status === "Approved"
+        ? `Application approved. Stall number ${item.stallNumber} assigned.`
+        : "Application status updated successfully!");
 }
 
 // Delete application
@@ -330,10 +347,13 @@ function deleteApplication(id) {
 
     if (!confirmDelete) return;
 
-    applications = applications.filter(item => item.id !== id);
+    applications = applications.filter(item =>
+        String(item.id) !== String(id)
+    );
 
     saveData();
     displayApplications();
+    alert("Stall application deleted successfully!");
 }
 
 // Search applications
@@ -343,11 +363,11 @@ searchInput.addEventListener("input", function() {
 
     const filteredData = applications.filter(item =>
 
-        item.studentName.toLowerCase().includes(searchValue) ||
-        item.stallName.toLowerCase().includes(searchValue) ||
-        item.stallCategory.toLowerCase().includes(searchValue) ||
-        item.eventName.toLowerCase().includes(searchValue) ||
-        item.status.toLowerCase().includes(searchValue)
+        String(item.studentName || "").toLowerCase().includes(searchValue) ||
+        String(item.stallName || "").toLowerCase().includes(searchValue) ||
+        String(item.stallCategory || "").toLowerCase().includes(searchValue) ||
+        String(item.eventName || "").toLowerCase().includes(searchValue) ||
+        String(item.status || "").toLowerCase().includes(searchValue)
     );
 
     displayApplications(filteredData);
