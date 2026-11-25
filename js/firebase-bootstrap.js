@@ -205,15 +205,6 @@
                         applyRemoteValue(key, remoteData[key]);
                     }
                 });
-
-                localDataKeys().forEach(key => {
-                    if (!Object.prototype.hasOwnProperty.call(remoteData, key)) {
-                        applyingRemoteData = true;
-                        localStorageRemoveItem.call(localStorage, key);
-                        applyingRemoteData = false;
-                        dispatchDataChange(key);
-                    }
-                });
             }, error => {
                 showStatus("Firebase listener failed. Local data is preserved.", error);
             });

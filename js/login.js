@@ -1,6 +1,17 @@
 const loginForm = document.getElementById("loginForm");
 
-loginForm.addEventListener("submit", function(event) {
+async function hashPassword(password) {
+    if (!window.crypto || !window.crypto.subtle) {
+        throw new Error("Secure password verification is not supported in this browser.");
+    }
+    const encoded = new TextEncoder().encode(password);
+    const digest = await window.crypto.subtle.digest("SHA-256", encoded);
+    return Array.from(new Uint8Array(digest))
+        .map(byte => byte.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+loginForm.addEventListener("submit", async function(event) {
 
     event.preventDefault();
 
@@ -25,25 +36,31 @@ loginForm.addEventListener("submit", function(event) {
             (item.email || "").toLowerCase() === email
         );
 
-        const demoStudent =
-            email === "rajbala82220@gmail.com" && password === "822280";
-
-        if (!demoStudent && (!student || student.password !== password)) {
+        if (!student) {
             alert("Invalid student email or password.");
             return;
         }
 
-        if (demoStudent && !student) {
-            students.push({
-                name: "Raj Bala",
-                email,
-                password,
-                phone: "8222800000",
-                collegeId: "CE2026004",
-                course: "BCA",
-                year: "3rd Year"
-            });
-            localStorage.setItem("campusStudents", JSON.stringify(students));
+        if (student.status && student.status !== "Active") {
+            alert("This student account is inactive.");
+            return;
+        }
+
+        let passwordMatches = false;
+        if (student.passwordHash) {
+            try {
+                passwordMatches = student.passwordHash === await hashPassword(password);
+            } catch (error) {
+                alert(error.message);
+                return;
+            }
+        } else {
+            passwordMatches = student.password === password;
+        }
+
+        if (!passwordMatches) {
+            alert("Invalid student email or password.");
+            return;
         }
 
         localStorage.setItem("campusCurrentStudent", email);

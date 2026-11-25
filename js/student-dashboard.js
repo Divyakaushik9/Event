@@ -34,14 +34,12 @@ function loadStudent() {
 
     currentStudent = students.find(student =>
         (student.email || "").toLowerCase() === (currentEmail || "").toLowerCase()
-    ) || students[0] || {
-        fullName: "Demo Student",
-        email: "student@example.com",
-        phone: "Not Available",
-        collegeId: "DEMO001",
-        course: "Not Available",
-        year: "Not Available"
-    };
+    ) || null;
+
+    if (!currentStudent) {
+        window.location.href = "../login.html";
+        return;
+    }
 
     const name = currentStudent.fullName ||
                  currentStudent.name || "Student";
