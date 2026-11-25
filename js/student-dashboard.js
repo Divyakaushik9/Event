@@ -453,9 +453,21 @@ document.getElementById("feedbackForm")
         }
 
         const feedback = getData("campusFeedback");
+        const studentId = getStudentId();
+
+        const alreadySubmitted = feedback.some(item =>
+            String(item.studentId || "") === String(studentId) &&
+            (item.eventName || item.event) === eventName
+        );
+
+        if (alreadySubmitted) {
+            alert("You have already submitted feedback for this event.");
+            return;
+        }
 
         feedback.push({
-            studentId: getStudentId(),
+            id: "feedback-" + Date.now(),
+            studentId: studentId,
             studentName: getStudentName(),
             eventName: eventName,
             rating: Number(rating),

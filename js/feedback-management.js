@@ -1,51 +1,36 @@
 const STORAGE_KEY = "campusFeedback";
 
-let feedbackList = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-// Demo feedback
-if (feedbackList.length === 0) {
-
-    feedbackList = [
-        {
-            id: 1,
-            studentName: "Rahul Sharma",
-            eventName: "Annual Cultural Fest",
-            rating: 5,
-            comment: "The event was amazing. I enjoyed all the activities.",
-            date: "2026-10-20",
-            status: "Pending"
-        },
-        {
-            id: 2,
-            studentName: "Priya Verma",
-            eventName: "Technical Workshop",
-            rating: 4,
-            comment: "The workshop was informative and useful.",
-            date: "2026-10-22",
-            status: "Reviewed"
-        },
-        {
-            id: 3,
-            studentName: "Aman Kumar",
-            eventName: "Sports Competition",
-            rating: 3,
-            comment: "The competition was good. Better arrangements are needed.",
-            date: "2026-10-25",
-            status: "Pending"
-        },
-        {
-            id: 4,
-            studentName: "Neha Singh",
-            eventName: "Annual Cultural Fest",
-            rating: 5,
-            comment: "Excellent arrangements and great performances.",
-            date: "2026-10-27",
-            status: "Reviewed"
-        }
-    ];
-
-    saveData();
+function readFeedback() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return Array.isArray(saved) ? saved : [];
+    } catch (error) {
+        return [];
+    }
 }
+
+let feedbackList = readFeedback();
+
+function normalizeFeedbackList(list) {
+    return list.map((item, index) => {
+        const rating = Number(item.rating);
+        return {
+            ...item,
+            id: item.id ?? item.feedbackId ?? `feedback-${index + 1}`,
+            studentName: item.studentName || item.name || "Unknown Student",
+            eventName: item.eventName || item.event || "Unknown Event",
+            comment: item.comment || "",
+            date: item.date || item.feedbackDate || "",
+            rating: Number.isFinite(rating)
+                ? Math.min(5, Math.max(1, rating))
+                : 1,
+            status: item.status === "Reviewed" ? "Reviewed" : "Pending"
+        };
+    });
+}
+
+feedbackList = normalizeFeedbackList(feedbackList);
+saveData();
 
 // Save feedback
 function saveData() {
@@ -66,7 +51,7 @@ function loadEvents() {
         JSON.parse(localStorage.getItem("campusEvents")) || [];
 
     const eventNames = savedEvents.length > 0
-        ? savedEvents.map(event => event.name)
+        ? savedEvents.map(event => event.name || event.eventName).filter(Boolean)
         : [
             "Annual Cultural Fest",
             "Technical Workshop",
@@ -181,9 +166,10 @@ function displayFeedback(data = feedbackList) {
         row.appendChild(ratingCell);
 
         // Comment
-        const comment = item.comment.length > 35
-            ? item.comment.substring(0, 35) + "..."
-            : item.comment;
+        const commentText = String(item.comment || "");
+        const comment = commentText.length > 35
+            ? commentText.substring(0, 35) + "..."
+            : commentText;
 
         createCell(row, comment);
         createCell(row, item.date);
@@ -237,7 +223,9 @@ function displayFeedback(data = feedbackList) {
 // View feedback details
 function viewFeedback(id) {
 
-    const item = feedbackList.find(feedback => feedback.id === id);
+    const item = feedbackList.find(feedback =>
+        String(feedback.id) === String(id)
+    );
 
     if (!item) return;
 
@@ -278,7 +266,9 @@ document.getElementById("closeModalBtn")
 // Toggle feedback status
 function toggleStatus(id) {
 
-    const item = feedbackList.find(feedback => feedback.id === id);
+    const item = feedbackList.find(feedback =>
+        String(feedback.id) === String(id)
+    );
 
     if (!item) return;
 
@@ -299,7 +289,9 @@ function deleteFeedback(id) {
 
     if (!confirmDelete) return;
 
-    feedbackList = feedbackList.filter(item => item.id !== id);
+    feedbackList = feedbackList.filter(item =>
+        String(item.id) !== String(id)
+    );
 
     saveData();
     applyFilters();
@@ -315,9 +307,9 @@ function applyFilters() {
     const filteredData = feedbackList.filter(item => {
 
         const matchesSearch =
-            item.studentName.toLowerCase().includes(searchValue) ||
-            item.eventName.toLowerCase().includes(searchValue) ||
-            item.comment.toLowerCase().includes(searchValue);
+            String(item.studentName || "").toLowerCase().includes(searchValue) ||
+            String(item.eventName || "").toLowerCase().includes(searchValue) ||
+            String(item.comment || "").toLowerCase().includes(searchValue);
 
         const matchesEvent =
             selectedEvent === "" || item.eventName === selectedEvent;
@@ -346,7 +338,8 @@ window.addEventListener("campusdatachange", function(event) {
     }
 
     if (event.detail.key === STORAGE_KEY) {
-        feedbackList = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        displayFeedback();
+        feedbackList = normalizeFeedbackList(readFeedback());
+        loadEvents();
+        applyFilters();
     }
 });
